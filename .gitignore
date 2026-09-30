@@ -1,0 +1,11 @@
+.output/
+.venv/
+__pycache__/
+
+*.json
+!config.example.json
+*.jsonl
+*.log
+*.txt
+!requirements.txt
+*.xlsx

@@ -1,0 +1,24 @@
+{
+  "SUBSCRIPTION_ID": "<your-azure-subscription-id>",
+  "SKIP_VM": [],
+  "SURVEY_FILE": "Form_Azure_Tags_VM_SKC.xlsx",
+  "DEPARTMENT_SHEETS": [
+    "Customer Success System",
+    "Digital Enterprise System",
+    "Cyber Security and Infrastructu",
+    "New Business Support"
+  ],
+  "EXPECTED_VM_COUNT": 102,
+  "OWNER_DOMAIN_WHITELIST": ["gmail.com"],
+  "DEPARTMENT_MASTER_LIST": [
+    "Cyber Security and Infrastructure",
+    "Customer Success System",
+    "Digital Enterprise System",
+    "New Business Support",
+    "Carbon Neutrality Department",
+    "Parts Division",
+    "Other"
+  ],
+  "ENVIRONMENT_MASTER_LIST": ["Production", "Development", "Test", "Sandbox"],
+  "DEPARTMENT_SAFE_LEGACY_VALUES": ["corporate system", "css / dee"]
+}
