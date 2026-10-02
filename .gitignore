@@ -11,3 +11,4 @@ __pycache__/
 
 *.csv
 sandbox/
+!00_example_output.csv
