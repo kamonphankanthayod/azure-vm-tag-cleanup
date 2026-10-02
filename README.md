@@ -68,6 +68,8 @@ Copy-Item config.example.json config.json
    python 04_apply_vm_tags.py --apply
    ```
 
+   โหมด `--apply` ทำงานครั้งละ 10 VM หลังจบแต่ละชุด กด Enter เพื่อทำอีก 10 VM, พิมพ์ `all` แล้วกด Enter เพื่อทำชุดที่เหลือต่อเนื่องโดยไม่ถามอีก, หรือพิมพ์ `stop` แล้วกด Enter เพื่อหยุด VM ที่ยังไม่ถึงคิวจะไม่ถูกแก้ไข
+
    สคริปต์จะสร้าง backup `backup_vm_tags_<timestamp>.json` ก่อนเขียน tag ในแต่ละ batch และถามก่อนเริ่ม batch ถัดไป บัญชีที่ใช้ apply ต้องมีสิทธิ์แก้ tag ของ VM
 
 5. หากต้อง rollback ให้ใช้ backup จากรอบ apply นั้น เริ่มจาก dry run:

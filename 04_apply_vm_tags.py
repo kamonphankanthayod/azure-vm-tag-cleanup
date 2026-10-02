@@ -16,6 +16,9 @@ real if --apply is passed.
 Dry-run   : python 04_apply_vm_tags.py
 Apply real: python 04_apply_vm_tags.py --apply
 
+In apply mode, VMs run in batches of 10. After each batch, press Enter for the
+next batch, type all to run every remaining batch without prompting, or stop.
+
 Expected plan format (a JSON list, one entry per VM):
   {
     "subscription_id": "...",
@@ -230,6 +233,7 @@ def main(dry_run=True):
     client = ResourceManagementClient(credential, sub_id)
 
     results, failed, cumulative_backup = [], [], []
+    run_remaining = False
 
     with open(LOG_FILE_JSONL, "w", encoding="utf-8") as log_f:
         for i in range(0, len(plan), BATCH_SIZE):
@@ -239,15 +243,20 @@ def main(dry_run=True):
             failed.extend([r for r in batch_results
                             if r["status"] not in ("SUCCESS", "DRY_RUN_OK", "SKIPPED_NO_OP")])
 
-            if not dry_run and (i + BATCH_SIZE) < len(plan):
+            if not dry_run and not run_remaining and (i + BATCH_SIZE) < len(plan):
                 cont = input(
                     f"\nBatch {i // BATCH_SIZE + 1} done ({len(batch)} VMs). "
                     f"Check the Portal, then press Enter to run the next batch "
-                    f"(or type stop to halt)... "
+                    f"(all = run all remaining batches, stop = halt)... "
                 )
-                if cont.strip().lower() == "stop":
+                choice = cont.strip().casefold()
+                if choice == "stop":
                     print("Stopped by user — any VM not yet reached will not be touched at all")
                     break
+
+                if choice == "all":
+                    run_remaining = True
+                    print("Running all remaining batches without further prompts")
 
     print(f"\n=== Summary ===")
     print(f"Total {len(results)} VMs | succeeded/no-op {len(results)-len(failed)} | failed {len(failed)}")
